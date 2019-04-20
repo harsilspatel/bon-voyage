@@ -7,4 +7,6 @@ target 'bon-voyage' do
 
   # Pods for bon-voyage
   pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'	
 end
