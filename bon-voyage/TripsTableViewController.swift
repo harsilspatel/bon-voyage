@@ -45,19 +45,16 @@ class TripsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tripCell = tableView.dequeueReusableCell(withIdentifier: CELL_TRIP, for: indexPath) as! TripTableViewCell
-        tripCell.titleLabel.text = data["titles"]![indexPath.row]
-        tripCell.subtitleLabel.text = data["subtitles"]![indexPath.row]
-        tripCell.cityImage.image = UIImage(named: data["images"]![indexPath.row])
-        tripCell.cityImage.layer.cornerRadius = 20
-        tripCell.clipsToBounds = true
+        let trip = Trip(title: data["titles"]![indexPath.row], thumbnail: UIImage(named: data["images"]![indexPath.row])!, subtitle: data["subtitles"]![indexPath.row])
+        tripCell.inflate(trip: trip)
         
         return tripCell
     }
     
-    override func tableView(_ tableView: UITableView,
-                            heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 192.00
-    }
+//    override func tableView(_ tableView: UITableView,
+//                            heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 192.00
+//    }
 
 
     /*
