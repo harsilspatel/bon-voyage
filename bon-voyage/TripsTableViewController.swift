@@ -10,6 +10,7 @@ import UIKit
 
 class TripsTableViewController: UITableViewController {
     
+    @IBOutlet weak var rightBarButton: UIBarButtonItem!
     let data = [
         "titles": ["New York", "California", "London"],
         "images": ["New-York", "California", "London"],
@@ -23,6 +24,7 @@ class TripsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+//        rightBarButton.type
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

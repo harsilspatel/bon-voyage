@@ -69,3 +69,6 @@ fastlane/test_output
 
 # Firebase API keys
 bon-voyage/GoogleService-Info.plist
+
+# Other API keys
+bon-voyage/APIKeys.swift

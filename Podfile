@@ -9,4 +9,7 @@ target 'bon-voyage' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'	
+  pod 'CalendarKit'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
 end
