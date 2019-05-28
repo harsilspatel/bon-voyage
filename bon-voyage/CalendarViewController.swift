@@ -10,7 +10,7 @@ import UIKit
 import CalendarKit
 import DateToolsSwift
 
-class CalendarViewController: DayViewController, DatePickerControllerDelegate {
+class CalendarViewController: DayViewController {
     
     var data = [["Breakfast at Tiffany's",
                  "New York, 5th avenue"],
@@ -50,11 +50,19 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
                   UIColor.yellow,
                   UIColor.green,
                   UIColor.red]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+//        print("hwiherw")
+//        let window = UIWindow(frame: UIScreen.main.bounds)
+//        window.backgroundColor = UIColor.darkGray
+//        window.makeKeyAndVisible()
+//        print("created window")
         
-        
+//        let calendarVC = CalendarViewController()
+//        let navigationController = UINavigationController(rootViewController: calendarVC)
+//        window.rootViewController = navigationController
+//        print("tried doing it cannot do it")
         reloadData()
     }
     
