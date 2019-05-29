@@ -26,6 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         ref = Database.database().reference()
         
+//        window = UIWindow(frame: UIScreen.main.bounds)
+//        window?.rootViewController = UINavigationController(rootViewController: BasicExampleViewController())
+//        window?.makeKeyAndVisible()
+        
         return true
     }
 

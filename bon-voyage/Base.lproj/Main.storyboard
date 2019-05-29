@@ -214,7 +214,7 @@
                     <navigationItem key="navigationItem" title="New York" id="jVn-kB-NuO">
                         <barButtonItem key="rightBarButtonItem" title="info" id="NNe-o2-lTo">
                             <connections>
-                                <segue destination="RoW-Vr-W6d" kind="show" id="aM2-bq-5H2"/>
+                                <action selector="openChatView:" destination="UrY-Pm-yXZ" id="ops-5f-g9n"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -232,19 +232,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k4Q-eD-Rcj">
-                                <rect key="frame" x="32" y="120" width="61" height="36"/>
+                                <rect key="frame" x="32" y="76" width="61" height="36"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fri, April 5 '19 - Wed, April 9 '19" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JVq-rV-cN9">
-                                <rect key="frame" x="32" y="172" width="240" height="21"/>
+                                <rect key="frame" x="32" y="128" width="240" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="G08-ci-XCh">
-                                <rect key="frame" x="32" y="425" width="350" height="192"/>
+                                <rect key="frame" x="32" y="381" width="350" height="192"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="192" id="WIN-zd-UZa"/>
@@ -254,37 +254,37 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fjS-0R-5lC">
-                                <rect key="frame" x="32" y="225" width="80" height="36"/>
+                                <rect key="frame" x="32" y="181" width="80" height="36"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qDz-i0-z2k">
-                                <rect key="frame" x="32" y="373" width="148" height="36"/>
+                                <rect key="frame" x="32" y="329" width="148" height="36"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xzu-3D-ubW">
-                                <rect key="frame" x="32" y="681" width="34" height="30"/>
+                                <rect key="frame" x="32" y="637" width="34" height="30"/>
                                 <state key="normal" title="Save"/>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emilia" translatesAutoresizingMaskIntoConstraints="NO" id="nqr-cz-3Cl">
-                                <rect key="frame" x="32" y="277" width="64" height="64"/>
+                                <rect key="frame" x="32" y="233" width="64" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="GmT-Du-VS4"/>
                                     <constraint firstAttribute="width" constant="64" id="uYG-hs-c8y"/>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kit" translatesAutoresizingMaskIntoConstraints="NO" id="yyz-Xt-Q4I">
-                                <rect key="frame" x="112" y="277" width="64" height="64"/>
+                                <rect key="frame" x="112" y="233" width="64" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="ief-iQ-ciJ"/>
                                     <constraint firstAttribute="width" constant="64" id="lL7-FD-C5h"/>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="peter" translatesAutoresizingMaskIntoConstraints="NO" id="wnx-dx-tSS">
-                                <rect key="frame" x="192" y="277" width="64" height="64"/>
+                                <rect key="frame" x="192" y="233" width="64" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="75n-A3-Gk1"/>
                                     <constraint firstAttribute="width" constant="64" id="xN7-WG-cEt"/>

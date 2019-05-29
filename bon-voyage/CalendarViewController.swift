@@ -137,5 +137,10 @@ class CalendarViewController: DayViewController {
     override func dayView(dayView: DayView, didMoveTo date: Date) {
         print("DayView = \(dayView) did move to: \(date)")
     }
+    
+    @IBAction func openChatView(_ sender: Any) {
+        navigationController?.pushViewController(BasicExampleViewController(), animated: true)
+    }
+    
 
 }
