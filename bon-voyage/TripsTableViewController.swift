@@ -11,6 +11,7 @@ import UIKit
 class TripsTableViewController: UITableViewController {
     
     @IBOutlet weak var rightBarButton: UIBarButtonItem!
+    
     let data = [
         "titles": ["New York", "California", "London"],
         "images": ["New-York", "California", "London"],
@@ -19,17 +20,33 @@ class TripsTableViewController: UITableViewController {
     
     let CELL_TRIP = "tripCell"
     
+    
     let SECTION_TRIP = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Add",
+//                                                           style: .plain,
+//                                                           target: self,
+//                                                           action: #selector(TripsTableViewController.showPlacesLookup))
+        
 //        rightBarButton.type
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    @objc func showPlacesLookup() {
+//        let
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let placesLookupVC =  storyboard.instantiateViewController(withIdentifier: "PlaceLookupViewController")
+//        let placesVC = PlaceLookupViewController()
+//        self.present(placesVC, animated: true, completion: nil)
+        
     }
 
     // MARK: - Table view data source

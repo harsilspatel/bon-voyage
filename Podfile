@@ -6,8 +6,11 @@ target 'bon-voyage' do
   use_frameworks!
 
   # Pods for bon-voyage
+  pod 'MessageKit'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'Firebase/Storage'
+  pod 'Firebase/Firestore'
   pod 'Firebase/Database'	
   pod 'CalendarKit'
   pod 'GoogleMaps'

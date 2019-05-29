@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginViewController: UIViewController {
 
@@ -14,6 +15,9 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        
+        Auth.auth().signInAnonymously(completion: nil)
+
     }
     
 
