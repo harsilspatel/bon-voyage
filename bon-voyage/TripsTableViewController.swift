@@ -11,14 +11,17 @@ import GooglePlaces
 
 class TripsTableViewController: UITableViewController, GMSAutocompleteViewControllerDelegate {
     
+    
     @IBOutlet weak var rightBarButton: UIBarButtonItem!
     
-    var data = [
+    var raw_trips = [
         "titles": ["New York", "California", "London"],
         "images": [UIImage(named: "New-York"), UIImage(named: "California"), UIImage(named: "London")],
 //        "images": ["New-York", "California", "London"],
         "subtitles": ["Easter break", "Semester break", "Christmas break"]
     ]
+    
+//    var filtered_trips = Nil
     
     let CELL_TRIP = "tripCell"
     
@@ -27,9 +30,20 @@ class TripsTableViewController: UITableViewController, GMSAutocompleteViewContro
     var placesClient: GMSPlacesClient!
 
     override func viewDidLoad() {
-        super.viewDidLoad()
-        placesClient = GMSPlacesClient.shared()
         
+        super.viewDidLoad()
+//        self.filtered_trips = raw_trips
+
+        placesClient = GMSPlacesClient.shared()
+//
+//        let searchController = UISearchController(searchResultsController: nil)
+//        searchController.searchResultsUpdater = self
+//        searchController.obscuresBackgroundDuringPresentation = false
+//        searchController.searchBar.placeholder = "Search todos"
+//        navigationItem.searchController = searchController
+//
+//        definesPresentationContext = true
+//
         
 //        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Add",
 //                                                           style: .plain,
@@ -62,13 +76,13 @@ class TripsTableViewController: UITableViewController, GMSAutocompleteViewContro
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return data["titles"]!.count
+        return raw_trips["titles"]!.count
     }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tripCell = tableView.dequeueReusableCell(withIdentifier: CELL_TRIP, for: indexPath) as! TripTableViewCell
-        let trip = Trip(title: data["titles"]![indexPath.row] as! String, thumbnail: data["images"]![indexPath.row] as! UIImage, subtitle: data["subtitles"]![indexPath.row] as! String)
+        let trip = Trip(title: raw_trips["titles"]![indexPath.row] as! String, thumbnail: raw_trips["images"]![indexPath.row] as! UIImage, subtitle: raw_trips["subtitles"]![indexPath.row] as! String)
         tripCell.inflate(trip: trip)
         
         return tripCell
@@ -92,9 +106,9 @@ class TripsTableViewController: UITableViewController, GMSAutocompleteViewContro
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            data["titles"]!.remove(at: indexPath.row)
-            data["images"]!.remove(at: indexPath.row)
-            data["subtitles"]!.remove(at: indexPath.row)
+            raw_trips["titles"]!.remove(at: indexPath.row)
+            raw_trips["images"]!.remove(at: indexPath.row)
+            raw_trips["subtitles"]!.remove(at: indexPath.row)
 
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
@@ -122,7 +136,7 @@ class TripsTableViewController: UITableViewController, GMSAutocompleteViewContro
         // Get the new view controller using segue.destination.
         let destination = segue.destination as! CalendarViewController
         let selectedIndexPath = tableView.indexPathsForSelectedRows?.first
-        destination.trip = data["titles"]![selectedIndexPath!.row] as! String
+        destination.trip = raw_trips["titles"]![selectedIndexPath!.row] as! String
     }
     
     @objc func autocompleteClicked() {
@@ -144,8 +158,8 @@ class TripsTableViewController: UITableViewController, GMSAutocompleteViewContro
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        data["titles"]!.append(place.name)
-        data["subtitles"]!.append("Work break")
+        raw_trips["titles"]!.append(place.name)
+        raw_trips["subtitles"]!.append("Work break")
         self.fetchPhoto(place.placeID!)
         print("Place name: \(place.name)")
         print("Place ID: \(place.placeID)")
@@ -201,7 +215,7 @@ class TripsTableViewController: UITableViewController, GMSAutocompleteViewContro
                                             } else {
                                                 // Display the first image and its attributions.
                                                 print("photo attached")
-                                                self.data["images"]!.append(photo!)
+                                                self.raw_trips["images"]!.append(photo!)
                                                 self.tableView.reloadData()
 //                                                self.lblText?.attributedText = photoMetadata.attributions;
                                             }
@@ -209,5 +223,21 @@ class TripsTableViewController: UITableViewController, GMSAutocompleteViewContro
                                     }
         })
     }
+    
+//    func updateSearchResults(for searchController: UISearchController) {
+//        // if there is non empty searchText in the searchBar then...
+//        if let searchText = searchController.searchBar.text?.lowercased(), searchText.count > 0 {
+//            // filter the visibleTodos and return only those todos whose title
+//            // or description contain the seachText.
+//
+//            self.filtered_trips = visibleTodos.filter({(todo: TodoItem) -> Bool in return ((todo.title!.lowercased().contains(searchText)) || (todo.taskDescription!.lowercased().contains(searchText)))})
+//        } else {
+//            // else do not filter
+//            filteredTodos = getVisibleTodos()
+//        }
+//
+//        // reload tableView to take into effect the filteredTodos
+//        tableView.reloadData()
+//    }
     
 }
