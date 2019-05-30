@@ -7,14 +7,16 @@
 //
 
 import UIKit
+import GooglePlaces
 
-class TripsTableViewController: UITableViewController {
+class TripsTableViewController: UITableViewController, GMSAutocompleteViewControllerDelegate {
     
     @IBOutlet weak var rightBarButton: UIBarButtonItem!
     
-    let data = [
+    var data = [
         "titles": ["New York", "California", "London"],
-        "images": ["New-York", "California", "London"],
+        "images": [UIImage(named: "New-York"), UIImage(named: "California"), UIImage(named: "London")],
+//        "images": ["New-York", "California", "London"],
         "subtitles": ["Easter break", "Semester break", "Christmas break"]
     ]
     
@@ -22,9 +24,11 @@ class TripsTableViewController: UITableViewController {
     
     
     let SECTION_TRIP = 0
+    var placesClient: GMSPlacesClient!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        placesClient = GMSPlacesClient.shared()
         
         
 //        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Add",
@@ -64,7 +68,7 @@ class TripsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tripCell = tableView.dequeueReusableCell(withIdentifier: CELL_TRIP, for: indexPath) as! TripTableViewCell
-        let trip = Trip(title: data["titles"]![indexPath.row], thumbnail: UIImage(named: data["images"]![indexPath.row])!, subtitle: data["subtitles"]![indexPath.row])
+        let trip = Trip(title: data["titles"]![indexPath.row] as! String, thumbnail: data["images"]![indexPath.row] as! UIImage, subtitle: data["subtitles"]![indexPath.row] as! String)
         tripCell.inflate(trip: trip)
         
         return tripCell
@@ -120,5 +124,90 @@ class TripsTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    @objc func autocompleteClicked() {
+        let autocompleteController = GMSAutocompleteViewController()
+        autocompleteController.delegate = self
+        
+        // Specify the place data types to return.
+        let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.name.rawValue) |
+            UInt(GMSPlaceField.placeID.rawValue))!
+        autocompleteController.placeFields = fields
+        
+        // Specify a filter.
+        let filter = GMSAutocompleteFilter()
+        filter.type = .city
+        autocompleteController.autocompleteFilter = filter
+        
+        // Display the autocomplete view controller.
+        present(autocompleteController, animated: true, completion: nil)
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        data["titles"]!.append(place.name)
+        data["subtitles"]!.append("Work break")
+        self.fetchPhoto(place.placeID!)
+        print("Place name: \(place.name)")
+        print("Place ID: \(place.placeID)")
+        print("Place attributions: \(place.attributions)")
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        // TODO: handle the error.
+        print("Error: ", error.localizedDescription)
+    }
+    
+    // User canceled the operation.
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // Turn the network activity indicator on and off again.
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+    
+    @IBAction func lookupCity(_ sender: Any) {
+        autocompleteClicked()
+    }
+    
+    func fetchPhoto(_ placeId: String?){
+        // Specify the place data types to return (in this case, just photos).
+        let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.photos.rawValue))!
+        
+        placesClient?.fetchPlace(fromPlaceID: placeId!,
+                                 placeFields: fields,
+                                 sessionToken: nil, callback: {
+                                    (place: GMSPlace?, error: Error?) in
+                                    if let error = error {
+                                        print("An error occurred: \(error.localizedDescription)")
+                                        return
+                                    }
+                                    if let place = place {
+                                        // Get the metadata for the first photo in the place photo metadata list.
+                                        let photoMetadata: GMSPlacePhotoMetadata = place.photos![0]
+                                        
+                                        // Call loadPlacePhoto to display the bitmap and attribution.
+                                        self.placesClient?.loadPlacePhoto(photoMetadata, callback: { (photo, error) -> Void in
+                                            if let error = error {
+                                                // TODO: Handle the error.
+                                                print("Error loading photo metadata: \(error.localizedDescription)")
+                                                return
+                                            } else {
+                                                // Display the first image and its attributions.
+                                                print("photo attached")
+                                                self.data["images"]!.append(photo!)
+                                                self.tableView.reloadData()
+//                                                self.lblText?.attributedText = photoMetadata.attributions;
+                                            }
+                                        })
+                                    }
+        })
+    }
+    
 }
