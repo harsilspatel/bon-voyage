@@ -18,48 +18,48 @@ class CalendarViewController: DayViewController, AddEventDelegate {
     var user = "test"
     var trip: String = ""
     
-    var raw_events_ref: DatabaseReference?
-    
 //    var raw_events: Array<Dictionary<String, Any>>?
     
-    var raw_events = [["description": ["Breakfast at Tiffany's", "New York, 5th avenue"],
-                 "start": "2019-05-30 14:00:00",
-                 "duration": 60],
-                
-                ["description": ["Workout", "Tufteparken"],
-                 "start": "2019-05-30 8:00:00",
-                 "duration": 90],
-                
-                ["description": ["Meeting with Alex",
-                                 "Home",
-                                 "Oslo, Tjuvholmen"],
-                 "start": "2019-05-31 18:30:00",
-                 "duration": 60],
-                
-                ["description": ["Beach Volleyball",
-                                 "Ipanema Beach",
-                                 "Rio De Janeiro"],
-                 "start": "2019-05-29 13:30:00",
-                 "duration": 120],
-                
-                ["description": ["WWDC",
-                                 "Moscone West Convention Center",
-                                 "747 Howard St"],
-                 "start": "2019-05-30 17:00:00",
-                 "duration": 90],
-                
-                ["description": ["Google I/O",
-                                 "Shoreline Amphitheatre",
-                                 "One Amphitheatre Parkway"],
-                 "start": "2019-05-29 12:00:00",
-                 "duration": 120],
-                
-                ["description": ["Software Development Lecture",
-                                 "Mikpoli MB310",
-                                 "Craig Federighi"],
-                 "start": "2019-05-31 14:00:00",
-                 "duration": 60],
-    ]
+//    var raw_events = [["description": ["Breakfast at Tiffany's", "New York, 5th avenue"],
+//                 "start": "2019-05-30 14:00:00",
+//                 "duration": 60],
+//
+//                ["description": ["Workout", "Tufteparken"],
+//                 "start": "2019-05-30 8:00:00",
+//                 "duration": 90],
+//
+//                ["description": ["Meeting with Alex",
+//                                 "Home",
+//                                 "Oslo, Tjuvholmen"],
+//                 "start": "2019-05-31 18:30:00",
+//                 "duration": 60],
+//
+//                ["description": ["Beach Volleyball",
+//                                 "Ipanema Beach",
+//                                 "Rio De Janeiro"],
+//                 "start": "2019-05-29 13:30:00",
+//                 "duration": 120],
+//
+//                ["description": ["WWDC",
+//                                 "Moscone West Convention Center",
+//                                 "747 Howard St"],
+//                 "start": "2019-05-30 17:00:00",
+//                 "duration": 90],
+//
+//                ["description": ["Google I/O",
+//                                 "Shoreline Amphitheatre",
+//                                 "One Amphitheatre Parkway"],
+//                 "start": "2019-05-29 12:00:00",
+//                 "duration": 120],
+//
+//                ["description": ["Software Development Lecture",
+//                                 "Mikpoli MB310",
+//                                 "Craig Federighi"],
+//                 "start": "2019-05-31 14:00:00",
+//                 "duration": 60],
+//    ]
+    
+    var raw_events = [TripEvent(title: "Meeting with Alex", start: Date(dateString: "2019-06-14 18:30:00", format: "yyyy-MM-dd HH:mm:ss"), duration: 60)]
     
     var colors = [UIColor.blue,
                   UIColor.yellow,
@@ -72,26 +72,11 @@ class CalendarViewController: DayViewController, AddEventDelegate {
         let raw_events_ref = Database.database().reference().child("users").child(user).child("trips").child(trip).child("events")
         print(trip)
         print("before prep")
-        self.prepareData()
         print("after prep")
         
         self.navigationItem.title = trip
 
         reloadData()
-    }
-    
-    func prepareData() {
-        print("inside prepdata")
-        self.raw_events_ref?.observe(.childChanged, with: { snapshot in
-            print("snappppy")
-            print(snapshot)
-            if let raw_events_snapshot = snapshot.value as? Array<Dictionary<String, Any>> {
-                self.raw_events = raw_events_snapshot
-            }
-            self.reloadData()
-        })
-        print("finishing prepdata")
-
     }
     
 //    func observe
@@ -113,22 +98,23 @@ class CalendarViewController: DayViewController, AddEventDelegate {
         var events = [Event]()
         
         for iterator in raw_events.indices {
-            let raw_event = raw_events[iterator]
+            let tripEvent = raw_events[iterator]
             let event = Event()
-            let duration = raw_event["duration"] as! Int
-            let datePeriod = TimePeriod(beginning: self.stringToDate(raw_event["start"] as! String),
+            let duration = tripEvent.duration
+            let datePeriod = TimePeriod(beginning: tripEvent.start,
                                         chunk: TimeChunk.dateComponents(minutes: duration))
             
             event.startDate = datePeriod.beginning!
             event.endDate = datePeriod.end!
             
-            var info = raw_event["description"] as! [String]
+            var info = [tripEvent.title]
             
             let timezone = TimeZone.ReferenceType.default
             info.append(datePeriod.beginning!.format(with: "dd.MM.YYYY", timeZone: timezone))
             info.append("\(datePeriod.beginning!.format(with: "HH:mm", timeZone: timezone)) - \(datePeriod.end!.format(with: "HH:mm", timeZone: timezone))")
+            
             event.text = info.reduce("", {$0 + $1 + "\n"})
-            event.color = colors[Int(arc4random_uniform(UInt32(colors.count)))]
+            event.color = tripEvent.color
             event.isAllDay = false
             
             events.append(event)
@@ -199,7 +185,7 @@ class CalendarViewController: DayViewController, AddEventDelegate {
     }
     
     func addEvent(newEvent: Dictionary<String, Any>) -> Bool {
-        raw_events.append(newEvent)
+//        raw_events.append(newEvent)
         self.reloadData()
         return true
     }
