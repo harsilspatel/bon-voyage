@@ -16,6 +16,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var ref: DatabaseReference!
+    
+    var user = "test"
+    var trip = "New York"
+    
+    let data = [["description": ["Breakfast at Tiffany's", "New York, 5th avenue"],
+                 "start": "2019-05-30 14:00:00",
+                 "duration": 60],
+                
+                ["description": ["Workout", "Tufteparken"],
+                 "start": "2019-05-30 8:00:00",
+                 "duration": 90],
+                
+                ["description": ["Meeting with Alex",
+                                 "Home",
+                                 "Oslo, Tjuvholmen"],
+                 "start": "2019-05-31 18:30:00",
+                 "duration": 60],
+                
+                ["description": ["Beach Volleyball",
+                                 "Ipanema Beach",
+                                 "Rio De Janeiro"],
+                 "start": "2019-05-29 13:30:00",
+                 "duration": 120],
+                
+                ["description": ["WWDC",
+                                 "Moscone West Convention Center",
+                                 "747 Howard St"],
+                 "start": "2019-05-30 17:00:00",
+                 "duration": 90],
+                
+                ["description": ["Google I/O",
+                                 "Shoreline Amphitheatre",
+                                 "One Amphitheatre Parkway"],
+                 "start": "2019-05-29 12:00:00",
+                 "duration": 120],
+                
+                ["description": ["Software Development Lecture",
+                                 "Mikpoli MB310",
+                                 "Craig Federighi"],
+                 "start": "2019-05-31 14:00:00",
+                 "duration": 60],
+    ]
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -24,8 +66,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey(googleMapsKey)
         GMSPlacesClient.provideAPIKey(googleMapsKey)
         
-        ref = Database.database().reference()
+        AppSettings.displayName = "testuser"
         
+//        self.ref.child("users/\(user)/trips\(trip)/\(date)").setValue([
+//            ["Breakfast at Tiffany's", "New York, 5th avenue"],
+//            ["Workout", "Tufteparken"]
+//        ])
+//        self.ref.child("users").child(user).child("trips").child(trip).updateChildValues(["events": data])
+        
+//
 //        window = UIWindow(frame: UIScreen.main.bounds)
 //        window?.rootViewController = UINavigationController(rootViewController: BasicExampleViewController())
 //        window?.makeKeyAndVisible()

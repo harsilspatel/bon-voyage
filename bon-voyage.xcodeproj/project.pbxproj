@@ -3,16 +3,32 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		16D6323E1831A5C1FF37526E /* Pods_bon_voyage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACFF3C79E40BCB53941610E5 /* Pods_bon_voyage.framework */; };
+		A0022FBE22B25669007B9037 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0022FBB22B25668007B9037 /* Message.swift */; };
+		A0022FBF22B25669007B9037 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0022FBC22B25669007B9037 /* Channel.swift */; };
+		A0022FC022B25669007B9037 /* DatabaseRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0022FBD22B25669007B9037 /* DatabaseRepresentation.swift */; };
+		A0022FC222B256D2007B9037 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0022FC122B256D1007B9037 /* ChatViewController.swift */; };
+		A0022FC422B2631C007B9037 /* UICollectionView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0022FC322B2631C007B9037 /* UICollectionView+Additions.swift */; };
+		A0022FC622B263EA007B9037 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0022FC522B263EA007B9037 /* AppSettings.swift */; };
+		A035069C2283E97A00366888 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A035069B2283E97A00366888 /* APIKeys.swift */; };
+		A03506A02283F02700366888 /* PlaceLookupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A035069F2283F02700366888 /* PlaceLookupViewController.swift */; };
+		A03506A222840B9500366888 /* TripInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03506A122840B9500366888 /* TripInfoViewController.swift */; };
+		A06ACA6222836C6F0036EBFA /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06ACA6122836C6F0036EBFA /* CalendarViewController.swift */; };
+		A0A63823229D766000A9EA09 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0A63822229D766000A9EA09 /* GoogleService-Info.plist */; };
+		A0A6383D229EF7E000A9EA09 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A6383B229EF7E000A9EA09 /* UIViewController+Extensions.swift */; };
+		A0A6383E229EF7E000A9EA09 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A6383C229EF7E000A9EA09 /* UIColor+Extensions.swift */; };
+		A0A63840229EF81200A9EA09 /* Settings+UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A6383F229EF81200A9EA09 /* Settings+UserDefaults.swift */; };
+		A0A6392C229FC1BF00A9EA09 /* AddEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A6392B229FC1BF00A9EA09 /* AddEventDelegate.swift */; };
+		A0A63930229FC81A00A9EA09 /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A6392F229FC81A00A9EA09 /* AddEventViewController.swift */; };
+		A0A63932229FD42E00A9EA09 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A63931229FD42E00A9EA09 /* SignUpViewController.swift */; };
 		A0BE31D1226B62F000218C71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE31D0226B62F000218C71 /* AppDelegate.swift */; };
 		A0BE31D6226B62F000218C71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0BE31D4226B62F000218C71 /* Main.storyboard */; };
 		A0BE31D8226B62F200218C71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0BE31D7226B62F200218C71 /* Assets.xcassets */; };
 		A0BE31DB226B62F200218C71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0BE31D9226B62F200218C71 /* LaunchScreen.storyboard */; };
-		A0BE31E4226B68DA00218C71 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0BE31E3226B68DA00218C71 /* GoogleService-Info.plist */; };
 		A0BE31E8226B6BC300218C71 /* TripsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE31E7226B6BC300218C71 /* TripsTableViewController.swift */; };
 		A0BE31EA226B6D2A00218C71 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE31E9226B6D2A00218C71 /* LoginViewController.swift */; };
 		A0BE31ED226B74DC00218C71 /* TripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE31EC226B74DC00218C71 /* TripTableViewCell.swift */; };
@@ -20,13 +36,29 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A0022FBB22B25668007B9037 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		A0022FBC22B25669007B9037 /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
+		A0022FBD22B25669007B9037 /* DatabaseRepresentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseRepresentation.swift; sourceTree = "<group>"; };
+		A0022FC122B256D1007B9037 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		A0022FC322B2631C007B9037 /* UICollectionView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Additions.swift"; sourceTree = "<group>"; };
+		A0022FC522B263EA007B9037 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		A035069B2283E97A00366888 /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
+		A035069F2283F02700366888 /* PlaceLookupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceLookupViewController.swift; sourceTree = "<group>"; };
+		A03506A122840B9500366888 /* TripInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripInfoViewController.swift; sourceTree = "<group>"; };
+		A06ACA6122836C6F0036EBFA /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		A0A63822229D766000A9EA09 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A0A6383B229EF7E000A9EA09 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		A0A6383C229EF7E000A9EA09 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		A0A6383F229EF81200A9EA09 /* Settings+UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Settings+UserDefaults.swift"; sourceTree = "<group>"; };
+		A0A6392B229FC1BF00A9EA09 /* AddEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventDelegate.swift; sourceTree = "<group>"; };
+		A0A6392F229FC81A00A9EA09 /* AddEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
+		A0A63931229FD42E00A9EA09 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		A0BE31CD226B62F000218C71 /* bon-voyage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "bon-voyage.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0BE31D0226B62F000218C71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0BE31D5226B62F000218C71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A0BE31D7226B62F200218C71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A0BE31DA226B62F200218C71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A0BE31DC226B62F200218C71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A0BE31E3226B68DA00218C71 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A0BE31E7226B6BC300218C71 /* TripsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsTableViewController.swift; sourceTree = "<group>"; };
 		A0BE31E9226B6D2A00218C71 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A0BE31EC226B74DC00218C71 /* TripTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTableViewCell.swift; sourceTree = "<group>"; };
@@ -65,6 +97,53 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A0A63824229EF09200A9EA09 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A0022FC122B256D1007B9037 /* ChatViewController.swift */,
+				A0BE31E7226B6BC300218C71 /* TripsTableViewController.swift */,
+				A06ACA6122836C6F0036EBFA /* CalendarViewController.swift */,
+				A035069F2283F02700366888 /* PlaceLookupViewController.swift */,
+				A0A6392F229FC81A00A9EA09 /* AddEventViewController.swift */,
+				A03506A122840B9500366888 /* TripInfoViewController.swift */,
+				A0BE31E9226B6D2A00218C71 /* LoginViewController.swift */,
+				A0A63931229FD42E00A9EA09 /* SignUpViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		A0A63827229EF17000A9EA09 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A0BE31DC226B62F200218C71 /* Info.plist */,
+				A0BE31D7226B62F200218C71 /* Assets.xcassets */,
+				A0A63822229D766000A9EA09 /* GoogleService-Info.plist */,
+				A035069B2283E97A00366888 /* APIKeys.swift */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A0A63828229EF2CB00A9EA09 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A0022FBC22B25669007B9037 /* Channel.swift */,
+				A0022FBD22B25669007B9037 /* DatabaseRepresentation.swift */,
+				A0022FBB22B25668007B9037 /* Message.swift */,
+				A0BE31F4226B7A5800218C71 /* Trip.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		A0A6383A229EF7D000A9EA09 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A0022FC322B2631C007B9037 /* UICollectionView+Additions.swift */,
+				A0A6383C229EF7E000A9EA09 /* UIColor+Extensions.swift */,
+				A0A6383B229EF7E000A9EA09 /* UIViewController+Extensions.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		A0BE31C4226B62F000218C71 = {
 			isa = PBXGroup;
 			children = (
@@ -86,16 +165,17 @@
 		A0BE31CF226B62F000218C71 /* bon-voyage */ = {
 			isa = PBXGroup;
 			children = (
-				A0BE31E3226B68DA00218C71 /* GoogleService-Info.plist */,
-				A0BE31D0226B62F000218C71 /* AppDelegate.swift */,
-				A0BE31E7226B6BC300218C71 /* TripsTableViewController.swift */,
-				A0BE31E9226B6D2A00218C71 /* LoginViewController.swift */,
-				A0BE31EC226B74DC00218C71 /* TripTableViewCell.swift */,
-				A0BE31F4226B7A5800218C71 /* Trip.swift */,
+				A0A63828229EF2CB00A9EA09 /* Models */,
+				A0A63827229EF17000A9EA09 /* Supporting Files */,
+				A0A63824229EF09200A9EA09 /* View Controllers */,
+				A0A6383A229EF7D000A9EA09 /* Extensions */,
 				A0BE31D4226B62F000218C71 /* Main.storyboard */,
-				A0BE31D7226B62F200218C71 /* Assets.xcassets */,
+				A0022FC522B263EA007B9037 /* AppSettings.swift */,
 				A0BE31D9226B62F200218C71 /* LaunchScreen.storyboard */,
-				A0BE31DC226B62F200218C71 /* Info.plist */,
+				A0BE31D0226B62F000218C71 /* AppDelegate.swift */,
+				A0BE31EC226B74DC00218C71 /* TripTableViewCell.swift */,
+				A0A6383F229EF81200A9EA09 /* Settings+UserDefaults.swift */,
+				A0A6392B229FC1BF00A9EA09 /* AddEventDelegate.swift */,
 			);
 			path = "bon-voyage";
 			sourceTree = "<group>";
@@ -112,6 +192,7 @@
 				A0BE31CA226B62F000218C71 /* Frameworks */,
 				A0BE31CB226B62F000218C71 /* Resources */,
 				0183B34215A30E531F438016 /* [CP] Embed Pods Frameworks */,
+				743C25CECA5C8B8A7F53358E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -161,7 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0BE31DB226B62F200218C71 /* LaunchScreen.storyboard in Resources */,
-				A0BE31E4226B68DA00218C71 /* GoogleService-Info.plist in Resources */,
+				A0A63823229D766000A9EA09 /* GoogleService-Info.plist in Resources */,
 				A0BE31D8226B62F200218C71 /* Assets.xcassets in Resources */,
 				A0BE31D6226B62F000218C71 /* Main.storyboard in Resources */,
 			);
@@ -176,26 +257,32 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-bon-voyage/Pods-bon-voyage-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-bon-voyage/Pods-bon-voyage-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-bon-voyage/Pods-bon-voyage-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-bon-voyage/Pods-bon-voyage-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bon-voyage/Pods-bon-voyage-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		743C25CECA5C8B8A7F53358E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bon-voyage/Pods-bon-voyage-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bon-voyage/Pods-bon-voyage-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bon-voyage/Pods-bon-voyage-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DC05587D58B63D61B405D0D9 /* [CP] Check Pods Manifest.lock */ = {
@@ -227,10 +314,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A03506A02283F02700366888 /* PlaceLookupViewController.swift in Sources */,
+				A0A6392C229FC1BF00A9EA09 /* AddEventDelegate.swift in Sources */,
+				A0022FC622B263EA007B9037 /* AppSettings.swift in Sources */,
+				A06ACA6222836C6F0036EBFA /* CalendarViewController.swift in Sources */,
+				A0A6383D229EF7E000A9EA09 /* UIViewController+Extensions.swift in Sources */,
+				A0022FBF22B25669007B9037 /* Channel.swift in Sources */,
+				A0A63932229FD42E00A9EA09 /* SignUpViewController.swift in Sources */,
+				A0A63930229FC81A00A9EA09 /* AddEventViewController.swift in Sources */,
 				A0BE31F5226B7A5800218C71 /* Trip.swift in Sources */,
+				A035069C2283E97A00366888 /* APIKeys.swift in Sources */,
+				A0A6383E229EF7E000A9EA09 /* UIColor+Extensions.swift in Sources */,
 				A0BE31ED226B74DC00218C71 /* TripTableViewCell.swift in Sources */,
+				A0022FC222B256D2007B9037 /* ChatViewController.swift in Sources */,
 				A0BE31EA226B6D2A00218C71 /* LoginViewController.swift in Sources */,
+				A03506A222840B9500366888 /* TripInfoViewController.swift in Sources */,
 				A0BE31E8226B6BC300218C71 /* TripsTableViewController.swift in Sources */,
+				A0022FBE22B25669007B9037 /* Message.swift in Sources */,
+				A0022FC422B2631C007B9037 /* UICollectionView+Additions.swift in Sources */,
+				A0022FC022B25669007B9037 /* DatabaseRepresentation.swift in Sources */,
+				A0A63840229EF81200A9EA09 /* Settings+UserDefaults.swift in Sources */,
 				A0BE31D1226B62F000218C71 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -387,7 +490,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.harsilspatel.bon-voyage";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -406,7 +509,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.harsilspatel.bon-voyage";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

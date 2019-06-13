@@ -11,24 +11,29 @@ import FirebaseAuth
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var email: UITextField!
+    @IBOutlet weak var password: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
         Auth.auth().signInAnonymously(completion: nil)
 
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func signin(_ sender: Any) {
+        Auth.auth().signIn(withEmail: email.text!, password: password.text!) { [weak self] user, error in
+            guard let strongSelf = self else { return }
+            if user == nil {
+                let alert = UIAlertController(title: "Auth failure", message: error.debugDescription, preferredStyle: UIAlertController.Style.alert)
+                
+                alert.addAction(UIAlertAction(title: "Retry", style: UIAlertAction.Style.default, handler: { _ in
+                    //Cancel Action
+                }))
+                self?.present(alert, animated: true, completion: nil)
+            } else {
+                strongSelf.navigationController?.pushViewController(TripsTableViewController(), animated: true)
+            }
+        }
     }
-    */
-
 }
