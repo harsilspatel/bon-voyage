@@ -69,7 +69,7 @@ final class ChatViewController: MessagesViewController {
             return
         }
         
-        reference = db.collection(["channels", id, "thread"].joined(separator: "/"))
+        reference = db.collection(["trips", id, "thread"].joined(separator: "/"))
         
         messageListener = reference?.addSnapshotListener { querySnapshot, error in
             guard let snapshot = querySnapshot else {

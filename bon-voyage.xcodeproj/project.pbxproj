@@ -14,6 +14,7 @@
 		A0022FC222B256D2007B9037 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0022FC122B256D1007B9037 /* ChatViewController.swift */; };
 		A0022FC422B2631C007B9037 /* UICollectionView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0022FC322B2631C007B9037 /* UICollectionView+Additions.swift */; };
 		A0022FC622B263EA007B9037 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0022FC522B263EA007B9037 /* AppSettings.swift */; };
+		A0022FCA22B2C839007B9037 /* TripEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0022FC922B2C839007B9037 /* TripEvent.swift */; };
 		A035069C2283E97A00366888 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A035069B2283E97A00366888 /* APIKeys.swift */; };
 		A03506A02283F02700366888 /* PlaceLookupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A035069F2283F02700366888 /* PlaceLookupViewController.swift */; };
 		A03506A222840B9500366888 /* TripInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03506A122840B9500366888 /* TripInfoViewController.swift */; };
@@ -42,6 +43,7 @@
 		A0022FC122B256D1007B9037 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		A0022FC322B2631C007B9037 /* UICollectionView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Additions.swift"; sourceTree = "<group>"; };
 		A0022FC522B263EA007B9037 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		A0022FC922B2C839007B9037 /* TripEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripEvent.swift; sourceTree = "<group>"; };
 		A035069B2283E97A00366888 /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		A035069F2283F02700366888 /* PlaceLookupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceLookupViewController.swift; sourceTree = "<group>"; };
 		A03506A122840B9500366888 /* TripInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripInfoViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				A0022FBD22B25669007B9037 /* DatabaseRepresentation.swift */,
 				A0022FBB22B25668007B9037 /* Message.swift */,
 				A0BE31F4226B7A5800218C71 /* Trip.swift */,
+				A0022FC922B2C839007B9037 /* TripEvent.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				A0A6383E229EF7E000A9EA09 /* UIColor+Extensions.swift in Sources */,
 				A0BE31ED226B74DC00218C71 /* TripTableViewCell.swift in Sources */,
 				A0022FC222B256D2007B9037 /* ChatViewController.swift in Sources */,
+				A0022FCA22B2C839007B9037 /* TripEvent.swift in Sources */,
 				A0BE31EA226B6D2A00218C71 /* LoginViewController.swift in Sources */,
 				A03506A222840B9500366888 /* TripInfoViewController.swift in Sources */,
 				A0BE31E8226B6BC300218C71 /* TripsTableViewController.swift in Sources */,

@@ -13,6 +13,16 @@ import DateToolsSwift
 
 class CalendarViewController: DayViewController, AddEventDelegate {
     
+    private let db = Firestore.firestore()
+    private var reference: CollectionReference?
+    
+    private var raw_events: [TripEvent] = []
+    private var eventListener: ListenerRegistration?
+    
+    deinit {
+        eventListener?.remove()
+    }
+    
     
     let dateFormat = "yyyy-MM-dd HH:mm:ss"
     var user = "test"
@@ -59,7 +69,7 @@ class CalendarViewController: DayViewController, AddEventDelegate {
 //                 "duration": 60],
 //    ]
     
-    var raw_events = [TripEvent(title: "Meeting with Alex", start: Date(dateString: "2019-06-14 18:30:00", format: "yyyy-MM-dd HH:mm:ss"), duration: 60)]
+//    var raw_events = [TripEvent(title: "Meeting with Alex", start: Date(dateString: "2019-06-14 18:30:00", format: "yyyy-MM-dd HH:mm:ss"), duration: 60)]
     
     var colors = [UIColor.blue,
                   UIColor.yellow,
@@ -69,10 +79,20 @@ class CalendarViewController: DayViewController, AddEventDelegate {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        let raw_events_ref = Database.database().reference().child("users").child(user).child("trips").child(trip).child("events")
-        print(trip)
-        print("before prep")
-        print("after prep")
+
+        reference = db.collection(["trips", trip, "events"].joined(separator: "/"))
+        
+        eventListener = reference?.addSnapshotListener { querySnapshot, error in
+            guard let snapshot = querySnapshot else {
+                print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
+                return
+            }
+            
+            snapshot.documentChanges.forEach { change in
+                self.handleDocumentChange(change)
+            }
+            print("listening")
+        }
         
         self.navigationItem.title = trip
 
@@ -155,6 +175,44 @@ class CalendarViewController: DayViewController, AddEventDelegate {
 
         }))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func handleDocumentChange(_ change: DocumentChange) {
+        guard var tripEvent = TripEvent(document: change.document) else {
+            print("returning...")
+            return
+        }
+        print("firebase added message \(tripEvent.title)")
+        
+        
+        switch change.type {
+        case .added:
+            insertNewTripEvent(tripEvent)
+        default:
+            break
+        }
+    }
+    
+    private func save(_ tripEvent: TripEvent) {
+        reference?.addDocument(data: tripEvent.representation) { error in
+            if let e = error {
+                print("Error sending message: \(e.localizedDescription)")
+                return
+            }
+
+        }
+        print("trip saved")
+    }
+    
+    private func insertNewTripEvent(_ tripEvent: TripEvent) {
+//        guard !messages.contains(message) else {
+//            return
+//        }
+        
+        print("inserted message \(tripEvent.title)")
+        
+        raw_events.append(tripEvent)
+        self.reloadData()
     }
     
     override func dayView(dayView: DayView, willMoveTo date: Date) {

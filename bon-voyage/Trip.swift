@@ -19,6 +19,4 @@ class Trip: NSObject {
         self.subtitle = subtitle
         self.thumbnail = thumbnail
     }
-    
-    
 }
