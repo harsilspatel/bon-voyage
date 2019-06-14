@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Floaty
 import Firebase
 import CalendarKit
 import DateToolsSwift
@@ -22,6 +23,8 @@ class CalendarViewController: DayViewController, AddEventDelegate {
     deinit {
         eventListener?.remove()
     }
+    
+    private var currentChannelAlertController: UIAlertController?
     
     
     let dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -93,6 +96,27 @@ class CalendarViewController: DayViewController, AddEventDelegate {
             }
             print("listening")
         }
+        
+        let floaty = Floaty()
+        floaty.addItem(title: "add item", handler: {_ in
+            self.performSegue(withIdentifier: "addEventSegue", sender: self)
+            
+            
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let viewController = storyboard.instantiateViewController(withIdentifier :"addEventViewController") as! AddEventViewController
+//            viewController.addEventDelegate = self
+//            self.present(viewController, animated: true)
+            
+            
+//            let addEventVC = AddEventViewController()
+//            self.navigationController?.pushViewController(addEventVC, animated: true)
+            floaty.close()
+        })
+        floaty.addItem(title: "add user", handler: {_ in
+            self.addUser()
+        })
+        
+        self.view.addSubview(floaty)
         
         self.navigationItem.title = trip
 
@@ -170,8 +194,9 @@ class CalendarViewController: DayViewController, AddEventDelegate {
         alert.addAction(UIAlertAction(title: "Delete",
                                       style: UIAlertAction.Style.destructive,
                                       handler: {(_: UIAlertAction!) in
-                                        self.raw_events.remove(at: index)
-                                        self.reloadData()
+                                        let tripEvent = self.raw_events[index]
+                                        self.reference?.document(tripEvent.databaseId!).delete()
+//                                        self.reloadData()
 
         }))
         self.present(alert, animated: true, completion: nil)
@@ -188,6 +213,8 @@ class CalendarViewController: DayViewController, AddEventDelegate {
         switch change.type {
         case .added:
             insertNewTripEvent(tripEvent)
+        case .removed:
+            removeTripEvent(tripEvent)
         default:
             break
         }
@@ -204,6 +231,73 @@ class CalendarViewController: DayViewController, AddEventDelegate {
         print("trip saved")
     }
     
+    private func addUser() {
+        let ac = UIAlertController(title: "Add user", message: nil, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        ac.addTextField { field in
+            field.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+            field.enablesReturnKeyAutomatically = true
+            field.autocapitalizationType = .none
+            field.clearButtonMode = .whileEditing
+            field.placeholder = "User email"
+            field.returnKeyType = .done
+            field.tintColor = .primary
+        }
+        let createAction = UIAlertAction(title: "Add", style: .default, handler: { _ in
+            self.createChannel()
+        })
+        createAction.isEnabled = false
+        ac.addAction(createAction)
+        ac.preferredAction = createAction
+        
+        present(ac, animated: true) {
+            ac.textFields?.first?.becomeFirstResponder()
+        }
+        currentChannelAlertController = ac
+    }
+    
+    @objc private func textFieldDidChange(_ field: UITextField) {
+        guard let ac = currentChannelAlertController else {
+            return
+        }
+        
+        ac.preferredAction?.isEnabled = field.hasText
+    }
+    
+    // MARK: - Helpers
+    
+    private func createChannel() {
+        guard let ac = currentChannelAlertController else {
+            return
+        }
+        
+        guard let userEmail = ac.textFields?.first?.text else {
+            return
+        }
+        
+        let userRef = db.collection("users").document(userEmail)
+        userRef.updateData([
+            "trips": FieldValue.arrayUnion([trip])
+        ])
+//        userRef.setData()
+
+//        userRef.getDocument { (document, error) in
+//            if let document = document, document.exists {
+//                let data = document.data()
+//                let trips = data["trips"] as? [String]
+//                trips.append(trip)
+//            } else {
+//                print("Document does not exist")
+//            }
+//        }
+//
+//        usersRef.addDocument(data: ["trips": [trip]]) { error in
+//            if let e = error {
+//                print("Error saving channel: \(e.localizedDescription)")
+//            }
+//        }
+    }
+    
     private func insertNewTripEvent(_ tripEvent: TripEvent) {
 //        guard !messages.contains(message) else {
 //            return
@@ -212,6 +306,14 @@ class CalendarViewController: DayViewController, AddEventDelegate {
         print("inserted message \(tripEvent.title)")
         
         raw_events.append(tripEvent)
+        self.reloadData()
+    }
+    
+    private func removeTripEvent(_ tripEvent: TripEvent) {
+        let index = raw_events.index(of: tripEvent)!
+        raw_events.remove(at: index)
+        
+        print("deleted message \(tripEvent.title)")
         self.reloadData()
     }
     
