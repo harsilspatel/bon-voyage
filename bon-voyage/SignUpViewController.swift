@@ -21,16 +21,31 @@ class SignUpViewController: UIViewController {
     
 
     @IBAction func signup(_ sender: Any) {
-        Auth.auth().createUser(withEmail: email.text!, password: password.text!) { authResult, error in
-            if authResult == nil {
-                let alert = UIAlertController(title: "Delete?", message: error.debugDescription, preferredStyle: UIAlertController.Style.alert)
-                
-                alert.addAction(UIAlertAction(title: "Retry", style: UIAlertAction.Style.default, handler: { _ in
-                    //Cancel Action
-                }))
-                self.present(alert, animated: true, completion: nil)
+        let signUpManager = FirebaseAuthManager()
+        signUpManager.createUser(email: email.text!, password: password.text!) {[weak self] (success, error) in
+            guard let `self` = self else { return }
+            var message: String = ""
+            print(success)
+            if (success) {
+                message = "User was sucessfully created."
+            } else {
+                message = error!.localizedDescription
             }
+            let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
         }
+
+//        Auth.auth().createUser(withEmail: email.text!, password: password.text!) { authResult, error in
+//            if authResult == nil {
+//                let alert = UIAlertController(title: "Delete?", message: error.debugDescription, preferredStyle: UIAlertController.Style.alert)
+//
+//                alert.addAction(UIAlertAction(title: "Retry", style: UIAlertAction.Style.default, handler: { _ in
+//                    //Cancel Action
+//                }))
+//                self.present(alert, animated: true, completion: nil)
+//            }
+//        }
     }
     /*
     // MARK: - Navigation
