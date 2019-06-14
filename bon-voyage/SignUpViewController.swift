@@ -13,10 +13,11 @@ class SignUpViewController: UIViewController {
 
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
+    
+    private let db = Firestore.firestore()
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
     }
     
 
@@ -28,6 +29,16 @@ class SignUpViewController: UIViewController {
             print(success)
             if (success) {
                 message = "User was sucessfully created."
+                
+                self.db.collection("users").document(self.email.text!).setData([
+                    "trips": []
+                ]) { err in
+                    if let err = err {
+                        print("Error writing document: \(err)")
+                    } else {
+                        print("Document successfully written!")
+                    }
+                }
             } else {
                 message = error!.localizedDescription
             }
