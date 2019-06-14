@@ -275,21 +275,28 @@ class CalendarViewController: DayViewController, AddEventDelegate {
             return
         }
         
+        
         let userRef = db.collection("users").document(userEmail)
-        userRef.updateData([
-            "trips": FieldValue.arrayUnion([trip])
-        ])
+//        userRef.updateData([
+//            "trips": FieldValue.arrayUnion([trip])
+//        ])
 //        userRef.setData()
-
-//        userRef.getDocument { (document, error) in
-//            if let document = document, document.exists {
-//                let data = document.data()
-//                let trips = data["trips"] as? [String]
-//                trips.append(trip)
-//            } else {
-//                print("Document does not exist")
-//            }
-//        }
+        
+        var message: String = ""
+        userRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                userRef.updateData([
+                    "trips": FieldValue.arrayUnion([self.trip])
+                ])
+                message = "User successfully added"
+            } else {
+                message = "User does not exist"
+            }
+            let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
+        
 //
 //        usersRef.addDocument(data: ["trips": [trip]]) { error in
 //            if let e = error {
