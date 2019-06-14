@@ -25,14 +25,11 @@ class AddEventViewController: UIViewController {
         let title = self.eventTitle.text!
         let duration = Int(self.duration.text!)!
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let startDate = dateFormatter.string(from: self.startDate.date)
-        _ = self.addEventDelegate!.addEvent(newEvent: [
-            "description": [title],
-             "start": startDate,
-             "duration": duration
-            ])
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+//        let start = dateFormatter.string(from: self.startDate.date)
+        let newEvent = TripEvent(title: title, start: self.startDate.date, duration: duration)
+        _ = self.addEventDelegate!.addEvent(newEvent: newEvent)
         navigationController?.popViewController(animated: true)
     }
     /*

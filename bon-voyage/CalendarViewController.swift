@@ -242,10 +242,12 @@ class CalendarViewController: DayViewController, AddEventDelegate {
         return dateFormatter.date(from: string)!
     }
     
-    func addEvent(newEvent: Dictionary<String, Any>) -> Bool {
-//        raw_events.append(newEvent)
+    func addEvent(newEvent: TripEvent) -> Bool {
+        self.save(newEvent)
         self.reloadData()
         return true
     }
+    
+    
     
 }

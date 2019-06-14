@@ -8,5 +8,5 @@
 
 import Foundation
 protocol AddEventDelegate {
-    func addEvent(newEvent: Dictionary<String, Any>) -> Bool
+    func addEvent(newEvent: TripEvent) -> Bool
 }
