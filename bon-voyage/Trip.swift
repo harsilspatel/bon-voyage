@@ -7,16 +7,61 @@
 //
 
 import UIKit
+import Firebase
 
 class Trip: NSObject {
-    var title: String
-    var subtitle: String
-    var thumbnail: UIImage
-
+    let title: String
+    let thumbnail: UIImage
+    let databaseId: String?
     
-    init(title: String, thumbnail: UIImage, subtitle: String) {
+    let tripLat: Double?
+    let tripLon: Double?
+    let tripID: String
+    
+    init(title: String, thumbnail: UIImage, tripID: String, lat: Double, lon: Double, databaseId: String?) {
         self.title = title
-        self.subtitle = subtitle
         self.thumbnail = thumbnail
+        self.databaseId = databaseId
+        
+        self.tripID = tripID
+        self.tripLat = lat
+        self.tripLon = lon
+    }
+    
+    convenience init?(document: QueryDocumentSnapshot, thumbnail: UIImage) {
+        let data = document.data()
+        
+        guard let title = data["title"] as? String else {
+            return nil
+        }
+        
+        guard let tripID = data["tripID"] as? String else {
+            return nil
+        }
+        
+        guard let tripLat = data["tripLat"] as? Double else {
+            return nil
+        }
+        
+        guard let tripLon = data["tripLon"] as? Double else {
+            return nil
+        }
+        
+        self.init(title: title, thumbnail: thumbnail, tripID: tripID, lat: tripLat, lon: tripLon, databaseId: document.documentID)
     }
 }
+
+extension Trip: DatabaseRepresentation {
+    
+    var representation: [String : Any] {
+        let rep: [String: Any] = [
+            "title": self.title,
+            
+            "tripID": self.tripID,
+            "tripLat": self.tripLat,
+            "tripLon": self.tripLon,
+        ]
+        return rep
+    }
+}
+
