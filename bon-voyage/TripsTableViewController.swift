@@ -7,9 +7,19 @@
 //
 
 import UIKit
+import Firebase
 import GooglePlaces
 
 class TripsTableViewController: UITableViewController, GMSAutocompleteViewControllerDelegate {
+    
+    private let db = AppCommons.sharedInstance.database
+    private var reference: DocumentReference?
+    
+    private var eventListener: ListenerRegistration?
+    
+    deinit {
+        eventListener?.remove()
+    }
     
     @IBOutlet weak var rightBarButton: UIBarButtonItem!
     
@@ -27,6 +37,23 @@ class TripsTableViewController: UITableViewController, GMSAutocompleteViewContro
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        self.reference =)
+    
+        reference = db.collection("users").document(AppCommons.sharedInstance.userEmail!)
+        
+        reference?
+            .addSnapshotListener { documentSnapshot, error in
+                guard let document = documentSnapshot else {
+                    print("Error fetching document: \(error!)")
+                    return
+                }
+                guard let data = document.data()else {
+                    print("Document data was empty.")
+                    return
+                }
+                self.addTrips(trips: data["trips"] as! [String])
+        }
         
     }
     
@@ -129,7 +156,19 @@ class TripsTableViewController: UITableViewController, GMSAutocompleteViewContro
             
             let lat = place.coordinate.latitude
             let lon = place.coordinate.longitude
-            self.raw_trips.append(Trip(title: place.name!, thumbnail: thumbnail!, tripID: place.placeID!, lat: lat, lon: lon, databaseId: nil))
+//            self.raw_trips.append(Trip(title: place.name!, thumbnail: thumbnail!, tripID: place.placeID!, lat: lat, lon: lon, databaseId: nil))
+            let trip = Trip(title: place.name!, thumbnail: thumbnail!, tripID: place.placeID!, lat: lat, lon: lon, databaseId: nil)
+            
+            self.db.collection("trips").document(trip.title).updateData(trip.representation)
+            
+            self.reference!.getDocument { (document, error) in
+                if let document = document, document.exists {
+                    self.reference!.updateData([
+                        "trips": FieldValue.arrayUnion([self.trip!.title])
+                        ])
+                }
+            }
+            
             self.tableView.reloadData()
         })
         dismiss(animated: true, completion: nil)
@@ -156,5 +195,54 @@ class TripsTableViewController: UITableViewController, GMSAutocompleteViewContro
     @IBAction func lookupCity(_ sender: Any) {
         autocompleteClicked()
     }
+    
+    private func addTrips(trips: [String]) {
+        for trip in trips {
+            let tripRef = db.collection("trips").document(trip)
+            tripRef.getDocument { (document, error) in
+                if let document = document, document.exists {
+                    self.fetchPhotoAndInsert(document)
+                } else {
+                    print("Document does not exist")
+                }
+            }
+        }
+    }
+    
+    func fetchPhotoAndInsert(_ tripDocument: DocumentSnapshot){
+        let placeId = tripDocument["tripID"] as! String
+        // Specify the place data types to return (in this case, just photos).
+        let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.photos.rawValue))!
+        
+        AppCommons.sharedInstance.placesClient.fetchPlace(fromPlaceID: placeId,
+             placeFields: fields,
+             sessionToken: nil, callback: {
+                (place: GMSPlace?, error: Error?) in
+                if let error = error {
+                    print("An error occurred: \(error.localizedDescription)")
+                    return
+                }
+                if let place = place {
+                    // Get the metadata for the first photo in the place photo metadata list.
+                    let photoMetadata: GMSPlacePhotoMetadata = place.photos![0]
+                    
+                    // Call loadPlacePhoto to display the bitmap and attribution.
+                    self.placesClient.loadPlacePhoto(photoMetadata, callback: { (photo, error) -> Void in
+                        if let error = error {
+                            // TODO: Handle the error.
+                            print("Error loading photo metadata: \(error.localizedDescription)")
+                            return
+                        } else {
+                            // Display the first image and its attributions.
+                            print("photo attached")
+                            let tripObject = Trip(document: tripDocument, thumbnail: photo!)
+                            self.raw_trips.append(tripObject!)
+                            self.tableView.reloadData()
+                        }
+                    })
+                }
+        })
+    }
+
     
 }
