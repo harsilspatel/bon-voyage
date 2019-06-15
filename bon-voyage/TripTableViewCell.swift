@@ -11,7 +11,6 @@ import UIKit
 class TripTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var cityThumbnail: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,7 +19,6 @@ class TripTableViewCell: UITableViewCell {
     
     func inflate(trip: Trip) {
         titleLabel.text = trip.title
-        subtitleLabel.text = trip.subtitle
         cityThumbnail.image = trip.thumbnail
         
         cityThumbnail.clipsToBounds = true
