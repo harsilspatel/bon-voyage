@@ -23,7 +23,7 @@ class TripsTableViewController: UITableViewController, GMSAutocompleteViewContro
     
     
     let SECTION_TRIP = 0
-    var placesClient = AppCommons.sharedInstance.placesClient
+    let placesClient = AppCommons.sharedInstance.placesClient
 
     override func viewDidLoad() {
         super.viewDidLoad()
