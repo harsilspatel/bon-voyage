@@ -29,7 +29,7 @@ class CalendarViewController: DayViewController, AddEventDelegate {
     
     let dateFormat = "yyyy-MM-dd HH:mm:ss"
     var user = "test"
-    var trip: String = ""
+    var trip: Trip?
     
 //    var raw_events: Array<Dictionary<String, Any>>?
     
@@ -83,7 +83,7 @@ class CalendarViewController: DayViewController, AddEventDelegate {
         
         super.viewDidLoad()
 
-        reference = db.collection(["trips", trip, "events"].joined(separator: "/"))
+        reference = db.collection(["trips", self.trip!.title, "events"].joined(separator: "/"))
         
         eventListener = reference?.addSnapshotListener { querySnapshot, error in
             guard let snapshot = querySnapshot else {
@@ -118,7 +118,7 @@ class CalendarViewController: DayViewController, AddEventDelegate {
         
         self.view.addSubview(floaty)
         
-        self.navigationItem.title = trip
+        self.navigationItem.title = self.trip!.title
 
         reloadData()
     }
@@ -134,6 +134,7 @@ class CalendarViewController: DayViewController, AddEventDelegate {
         // Pass the selected object to the new view controller.
         if segue.identifier == "addEventSegue" {
             let destination = segue.destination as! AddEventViewController
+            destination.trip = self.trip
             destination.addEventDelegate = self
         }
     }
@@ -173,6 +174,18 @@ class CalendarViewController: DayViewController, AddEventDelegate {
         guard let descriptor = eventView.descriptor as? Event else {
             return
         }
+        let index = descriptor.userInfo! as! Int
+        let tripEvent = raw_events[index]
+        let lat = tripEvent.placeLat
+        let lon = tripEvent.placeLon
+        let placeID = tripEvent.placeID
+        
+        // if you have the Google Maps app installed this link will be opened in the application for iOS 9+
+        // source: https://developers.google.com/maps/documentation/urls/ios-urlscheme
+        let mapLink = "https://www.google.com/maps/search/?api=1&query=\(lat),\(lon)&query_place_id=\(placeID)"
+//        UIApplication.shared.openURL(URL(string: mapLink)!)
+        UIApplication.shared.open(URL(string: mapLink)!, options: [:], completionHandler: nil)
+        
         print("Event has been selected: \(descriptor) \(String(describing: descriptor.userInfo))")
     }
     
@@ -275,7 +288,7 @@ class CalendarViewController: DayViewController, AddEventDelegate {
             return
         }
         
-        
+        // learnt that modern databases are alternating collections and documents.
         let userRef = db.collection("users").document(userEmail)
 //        userRef.updateData([
 //            "trips": FieldValue.arrayUnion([trip])
@@ -286,7 +299,7 @@ class CalendarViewController: DayViewController, AddEventDelegate {
         userRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 userRef.updateData([
-                    "trips": FieldValue.arrayUnion([self.trip])
+                    "trips": FieldValue.arrayUnion([self.trip!.title])
                 ])
                 message = "User successfully added"
             } else {
@@ -334,7 +347,7 @@ class CalendarViewController: DayViewController, AddEventDelegate {
     
     @IBAction func openChatView(_ sender: Any) {
         let user = Auth.auth().currentUser!
-        let channel = Channel(name: self.trip, id: self.trip)
+        let channel = Channel(name: self.trip!.title, id: self.trip!.title)
         let chatVC = ChatViewController(user: user, channel: channel)
         navigationController?.pushViewController(chatVC, animated: true)
     }

@@ -11,6 +11,7 @@ import GooglePlaces
 
 class AddEventViewController: UIViewController, GMSAutocompleteViewControllerDelegate {
     
+    var trip: Trip?
     var temp_place: GMSPlace?
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
         print("Error: ", error.localizedDescription)
@@ -46,10 +47,10 @@ class AddEventViewController: UIViewController, GMSAutocompleteViewControllerDel
         
         // Specify a filter.
         let filter = GMSAutocompleteFilter()
-        filter.type = .address
+        filter.type = .noFilter
         //        autocompleteController.auto
-        let lat = 40.7127753
-        let lon = -74.0059728
+        let lat = trip!.coordinates!.latitude
+        let lon = trip!.coordinates!.longitude
         let northeEastBound = CLLocationCoordinate2D(latitude: lat - 0.5, longitude: lon - 0.5)
         let southWestBound = CLLocationCoordinate2D(latitude: lat + 0.5, longitude: lon + 0.5)
         let bounds = GMSCoordinateBounds(coordinate: northeEastBound, coordinate: southWestBound)
