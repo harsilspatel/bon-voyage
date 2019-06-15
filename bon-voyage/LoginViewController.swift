@@ -18,6 +18,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         self.navigationItem.rightBarButtonItem?.isEnabled = false
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
@@ -31,44 +32,38 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func signin(_ sender: Any) {
-        let loginManager = FirebaseAuthManager()
-        guard let email = emailTextField.text, let password = passwordTextField.text else { return }
-//        loginManager.signIn(email: email, pass: password) {[weak self] (success, error) in
-        loginManager.signIn(email: "aaa@aaa.com", pass: "000000") {[weak self] (success, error) in
-            guard let `self` = self else { return }
-            var message: String = ""
-            if (success) {
-                message = "User was sucessfully logged in."
-            } else {
-                message = error!.localizedDescription
+        var message = ""
+//        let email = emailTextField.text!
+//        let password = passwordTextField.text!
+        let email = "abc@xyz.com"
+        let password = "000000"
+        
+        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+            if let error = error {
+                message = error.localizedDescription
                 let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                 self.present(alertController, animated: true, completion: nil)
                 return
+            } else {
+                let db = AppCommons.sharedInstance.database
+                db.collection("users").document(email).getDocument { (document, error) in
+                    if let document = document, document.exists {
+                        let data = document.data()!
+                        AppCommons.sharedInstance.userName = data["name"] as? String
+                        print("SIGNED IN!!!")
+                        print(AppCommons.sharedInstance.userName)
+                    } else {
+                        print("Document does not exist")
+                    }
+                }
+
+                
+                self.navigationItem.rightBarButtonItem?.isEnabled = true
             }
-            self.navigationItem.rightBarButtonItem?.isEnabled = true
-
-//            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//            let newViewController = storyBoard.instantiateViewController(withIdentifier: "tripsTableViewController") as! TripsTableViewController
-//            UIApplication.shared.keyWindow?.rootViewController?.present(newViewController, animated: true, completion: nil)
-
         }
-//        self.navigationController?.pushViewController(TripsTableViewController(), animated: true)
-
-        
-//        Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { [weak self] user, error in
-//            guard let strongSelf = self else { return }
-//            if user == nil {
-//                let alert = UIAlertController(title: "Auth failure", message: error.debugDescription, preferredStyle: UIAlertController.Style.alert)
-//
-//                alert.addAction(UIAlertAction(title: "Retry", style: UIAlertAction.Style.default, handler: { _ in
-//                    //Cancel Action
-//                }))
-//                self?.present(alert, animated: true, completion: nil)
-//            } else {
-//                self?.navigationController!.popViewController(animated: true)
-//            }
-//        }
+//        self.performSegue(withIdentifier: "launchAppSegue", sender: self)
     }
-    
 }
+    
+

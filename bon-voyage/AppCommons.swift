@@ -15,6 +15,7 @@ class AppCommons {
     
     let database = Firestore.firestore()
     let placesClient = GMSPlacesClient.shared()
+    var userName: String?
     
     private init() {
 //        database =
